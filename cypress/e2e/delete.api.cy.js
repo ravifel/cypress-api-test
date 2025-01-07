@@ -24,18 +24,19 @@ describe('Deletar dispositivo', () => {
 
         // Pegando o result do cadastro, para pegar o 'id'
         cy.get('@postDeviceResult')
-            .then((response) => {
-                expect(response.status).equal(200);
+            .then((response_post) => {
+                expect(response_post.status).equal(200);
 
                 cy.request({
                     method: 'DELETE',
-                    url: `https://api.restful-api.dev/objects/${response.body.id}`,
+                    url: `https://api.restful-api.dev/objects/${response_post.body.id}`,
                     failOnStatusCode: false
                 }).as('deleteDeviceResult')
 
                 //validations do delete
                 cy.get('@deleteDeviceResult').then((response_delete) => {
-
+                    expect(response_delete.status).equal(200)
+                    expect(response_delete.body.message).equal(`Object with id = ${response_post.body.id} has been deleted.`);
                 })
             })
 
