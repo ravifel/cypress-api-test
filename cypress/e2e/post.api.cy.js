@@ -2,7 +2,7 @@
 
 describe('Register device', () => {
 
-    it('Register device', () => {
+    it('Register a device', () => {
         const currentDate = new Date().toISOString().slice(0, 10);
 
         const body = {
@@ -39,6 +39,22 @@ describe('Register device', () => {
 
                 expect(response.body.data.year).equal(body.data.year);
                 expect(response.body.data.price).equal(body.data.price);
+            })
+    })
+
+    it('Register a device without sending data', () => {
+        cy.request({
+            method: 'POST',
+            url: `https://api.restful-api.dev/objects`,
+            failOnStatusCode: false,
+        }).as('postDeviceResult')
+
+        //validations
+        //pegar o Response e fazer as validacoes -> 
+        cy.get('@postDeviceResult')
+            .then((response) => {
+                expect(response.status).equal(400);
+                expect(response.body.error).equal('400 Bad Request. If you are trying to create or update the data, potential issue is that you are sending incorrect body json or it is missing at all.')
             })
     })
 })
