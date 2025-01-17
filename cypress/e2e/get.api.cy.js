@@ -12,7 +12,7 @@ describe('List devices', () => {
         }).as('getDeviceResult')
 
 
-        //validations
+        // Validations
         cy.get('@getDeviceResult')
             .then((response) => {
 
@@ -26,14 +26,12 @@ describe('List devices', () => {
                 expect(response.body.data.year).not.string;
                 expect(response.body.data.year).equal(2019);
 
-                //expect(response.body.data.price).not.empty
                 expect(response.body.data.price).to.exist;
                 expect(response.body.data.price).to.be.a('number');
                 expect(response.body.data.price).equal(1849.99);
 
                 expect(response.body.data['CPU model']).not.empty;
                 expect(response.body.data['Hard disk size']).not.empty;
-
             })
     })
 })

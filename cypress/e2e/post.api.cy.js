@@ -23,8 +23,8 @@ describe('Register device', () => {
             body: body
         }).as('postDeviceResult')
 
-        //validations
-        //pegar o Response e fazer as validacoes -> 
+        // Validations
+        // get the response and do the validations -> 
         cy.get('@postDeviceResult')
             .then((response) => {
                 expect(response.status).equal(200);
@@ -49,8 +49,8 @@ describe('Register device', () => {
             failOnStatusCode: false,
         }).as('postDeviceResult')
 
-        //validations
-        //pegar o Response e fazer as validacoes -> 
+        // Validations
+        // get the response and do the validations -> 
         cy.get('@postDeviceResult')
             .then((response) => {
                 expect(response.status).equal(400);

@@ -1,8 +1,8 @@
 /// <reference types="cypress"/>
 
-describe('Alterar dispositivos', () => {
+describe('Change devices', () => {
 
-    it('Alterar um dispositivo', () => {
+    it('Change a device', () => {
         const currentDate = new Date().toISOString().slice(0, 10);
 
         const body_post = {
@@ -34,7 +34,7 @@ describe('Alterar dispositivos', () => {
             body: body_post
         }).as('postDeviceResult')
 
-        // Pegando o result do cadastro, para pegar o 'id'
+        // Getting the registration result, to get the 'id'
         cy.get('@postDeviceResult')
             .then((response_post) => {
                 expect(response_post.status).equal(200);
@@ -47,7 +47,7 @@ describe('Alterar dispositivos', () => {
                     body: body_put
                 }).as('putDeviceResult')
 
-                //validations do PUT
+                // PUT validations
                 cy.get('@putDeviceResult').then((response_put) => {
                     expect(response_put.status).equal(200)
                     expect(response_put.body.name).equal(body_put.name)
