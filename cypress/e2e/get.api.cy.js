@@ -7,10 +7,9 @@ describe('List devices', () => {
 
         cy.request({
             method: 'GET',
-            url: `https://api.restful-api.dev/objects/${device__id}`,
+            url: `/objects/${device__id}`,
             failOnStatusCode: false
         }).as('getDeviceResult')
-
 
         // Validations
         cy.get('@getDeviceResult')

@@ -18,7 +18,7 @@ describe('Register device', () => {
 
         cy.request({
             method: 'POST',
-            url: `https://api.restful-api.dev/objects`,
+            url: `/objects`,
             failOnStatusCode: false,
             body: body
         }).as('postDeviceResult')
@@ -45,7 +45,7 @@ describe('Register device', () => {
     it('Register a device without sending data', () => {
         cy.request({
             method: 'POST',
-            url: `https://api.restful-api.dev/objects`,
+            url: `/objects`,
             failOnStatusCode: false,
         }).as('postDeviceResult')
 
