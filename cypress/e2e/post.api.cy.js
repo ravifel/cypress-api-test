@@ -16,12 +16,7 @@ describe('Register device', () => {
             }
         }
 
-        cy.request({
-            method: 'POST',
-            url: `/objects`,
-            failOnStatusCode: false,
-            body: body
-        }).as('postDeviceResult')
+        cy.deviceRegister(body).as('postDeviceResult')
 
         // Validations
         // get the response and do the validations -> 
@@ -30,24 +25,18 @@ describe('Register device', () => {
                 expect(response.status).equal(200);
                 expect(response.body.id).not.to.be.null;
                 expect(response.body.id).not.to.be.empty;
-
                 expect(response.body.createdAt).not.to.be.null;
                 expect(response.body.createdAt).to.not.be.empty;
-
                 expect(response.body.createdAt.slice(0, 10)).equal(currentDate);
                 expect(response.body.name).equal(body.name);
-
                 expect(response.body.data.year).equal(body.data.year);
                 expect(response.body.data.price).equal(body.data.price);
             })
     })
 
     it('Register a device without sending data', () => {
-        cy.request({
-            method: 'POST',
-            url: `/objects`,
-            failOnStatusCode: false,
-        }).as('postDeviceResult')
+
+        cy.deviceRegister().as('postDeviceResult')
 
         // Validations
         // get the response and do the validations -> 

@@ -15,23 +15,14 @@ describe('Deletar dispositivo', () => {
             }
         }
 
-        cy.request({
-            method: 'POST',
-            url: `/objects`,
-            failOnStatusCode: false,
-            body: body
-        }).as('postDeviceResult')
+        cy.deviceRegister(body).as('postDeviceResult')
 
         // Getting the registration result, to get the 'id'
         cy.get('@postDeviceResult')
             .then((response_post) => {
                 expect(response_post.status).equal(200);
 
-                cy.request({
-                    method: 'DELETE',
-                    url: `/objects/${response_post.body.id}`,
-                    failOnStatusCode: false
-                }).as('deleteDeviceResult')
+                cy.deleteDevice(response_post.body.id).as('deleteDeviceResult')
 
                 // Delete validations
                 cy.get('@deleteDeviceResult').then((response_delete) => {
@@ -44,11 +35,7 @@ describe('Deletar dispositivo', () => {
     it('Delete a non-existent device', () => {
 
         const nonExistentId = 'testId';
-        cy.request({
-            method: 'DELETE',
-            url: `/objects/${nonExistentId}`,
-            failOnStatusCode: false
-        }).as('deleteDeviceResult')
+        cy.deleteDevice(nonExistentId).as('deleteDeviceResult')
 
         // Delete validations
         cy.get('@deleteDeviceResult').then((response_delete) => {
@@ -59,11 +46,7 @@ describe('Deletar dispositivo', () => {
 
     it('Delete an existing but reserved device', () => {
 
-        cy.request({
-            method: 'DELETE',
-            url: `/objects/7`,
-            failOnStatusCode: false
-        }).as('deleteDeviceResult')
+        cy.deleteDevice(7).as('deleteDeviceResult')
 
         // Delete validations
         cy.get('@deleteDeviceResult').then((response_delete) => {

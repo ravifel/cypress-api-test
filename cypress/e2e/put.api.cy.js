@@ -27,12 +27,7 @@ describe('Change devices', () => {
             }
         }
 
-        cy.request({
-            method: 'POST',
-            url: `/objects`,
-            failOnStatusCode: false,
-            body: body_post
-        }).as('postDeviceResult')
+        cy.deviceRegister(body_post).as('postDeviceResult')
 
         // Getting the registration result, to get the 'id'
         cy.get('@postDeviceResult')
@@ -40,12 +35,7 @@ describe('Change devices', () => {
                 expect(response_post.status).equal(200);
                 expect(response_post.body.name).equal("Ravi Laptop")
 
-                cy.request({
-                    method: 'PUT',
-                    url: `/objects/${response_post.body.id}`,
-                    failOnStatusCode: false,
-                    body: body_put
-                }).as('putDeviceResult')
+                cy.updateDevice(response_post.body.id, body_put).as('putDeviceResult')
 
                 // PUT validations
                 cy.get('@putDeviceResult').then((response_put) => {
