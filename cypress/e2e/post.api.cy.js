@@ -2,20 +2,12 @@
 
 describe('Register device', () => {
 
+    const payload_registration_device = require('../fixtures/post_tests/register_device_successfully.json');
+
     it('Register a device', () => {
         const currentDate = new Date().toISOString().slice(0, 10);
 
-        const body = {
-            "name": "Ravi Laptop",
-            "data": {
-                "year": 2024,
-                "price": 1849.99,
-                "CPU model": "Intel Core i5",
-                "Hard disk size": "1 TB",
-                "Owner": "Ravi Silva LTDA"
-            }
-        }
-
+        const body = payload_registration_device;
         cy.deviceRegister(body).as('postDeviceResult')
 
         // Validations

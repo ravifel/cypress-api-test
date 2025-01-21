@@ -2,30 +2,14 @@
 
 describe('Change devices', () => {
 
+    const payload_registration_device = require('../fixtures/put_tests/register_device_successfully.json');
+    const payload_update_device = require('../fixtures/put_tests/update_device_successfully.json');
+
     it('Change a device', () => {
         const currentDate = new Date().toISOString().slice(0, 10);
 
-        const body_post = {
-            "name": "Ravi Laptop",
-            "data": {
-                "year": 2024,
-                "price": 1849.99,
-                "CPU model": "Intel Core i5",
-                "Hard disk size": "1 TB",
-                "Owner": "Ravi Silva LTDA"
-            }
-        }
-
-        const body_put = {
-            "name": "Ravi Laptop Updated",
-            "data": {
-                "year": 2024,
-                "price": 1849.99,
-                "CPU model": "Intel Core i5  Updated",
-                "Hard disk size": "1 TB  Updated",
-                "Owner": "Ravi Silva LTDA  Updated"
-            }
-        }
+        const body_post = payload_registration_device;
+        const body_put = payload_update_device
 
         cy.deviceRegister(body_post).as('postDeviceResult')
 
